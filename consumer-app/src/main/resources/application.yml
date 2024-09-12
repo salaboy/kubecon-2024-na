@@ -1,0 +1,22 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: consumer-app
+dapr:
+  pubsub:
+    name: pubsub
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    metrics:
+      tags:
+        service.name: ${spring.application.name}
+    tracing:
+      sampling:
+        probability: 1.0
+    otlp:
+      tracing:
+        endpoint: http://localhost:4317/v1/traces
