@@ -39,23 +39,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-tracing-bridge-otel</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.opentelemetry</groupId>
-			<artifactId>opentelemetry-exporter-otlp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-otlp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.ttddyy.observation</groupId>
-			<artifactId>datasource-micrometer-spring-boot</artifactId>
-			<version>1.0.5</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.micrometer</groupId>-->
+<!--			<artifactId>micrometer-tracing-bridge-otel</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>io.opentelemetry</groupId>-->
+<!--			<artifactId>opentelemetry-exporter-otlp</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>io.micrometer</groupId>-->
+<!--			<artifactId>micrometer-registry-otlp</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>net.ttddyy.observation</groupId>-->
+<!--			<artifactId>datasource-micrometer-spring-boot</artifactId>-->
+<!--			<version>1.0.5</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>io.dapr.spring</groupId>
 			<artifactId>dapr-spring-boot-starter</artifactId>
@@ -67,17 +67,16 @@
 			<version>${dapr-java-sdk.alpha-version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.25.1</version>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>junit-jupiter</artifactId>
 		    <scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>1.20.0</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>

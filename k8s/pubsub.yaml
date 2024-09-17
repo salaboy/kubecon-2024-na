@@ -1,0 +1,20 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pubsub
+spec:
+  type: pubsub.rabbitmq
+  version: v1
+  metadata:
+    - name: protocol
+      value: amqp
+    - name: hostname
+      value: rabbitmq
+    - name: username
+      value: "user"
+    - name: password
+      secretKeyRef:
+        name: rabbitmq
+        key: rabbitmq-password
+    - name: heartBeat
+      value: 10s

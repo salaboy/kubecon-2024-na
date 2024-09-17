@@ -4,17 +4,17 @@ spring:
 dapr:
   pubsub:
     name: pubsub
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  metrics:
-    tags:
-      service.name: ${spring.application.name}
-  tracing:
-    sampling:
-      probability: 1.0
-  otlp:
-    tracing:
-      endpoint: http://localhost:4318/v1/traces
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  metrics:
+#    tags:
+#      service.name: ${spring.application.name}
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  otlp:
+#    tracing:
+#      endpoint: http://localhost:4318/v1/traces
