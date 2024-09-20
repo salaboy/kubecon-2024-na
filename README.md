@@ -18,6 +18,10 @@ docker tag
 docker push
 ```
 
+Images are pushed to:
+- docker.io/salaboy/producer-app:0.1.0
+- docker.io/salaboy/consumer-app:0.1.0
+
 ## Deploy 
 
 We will use a KinD cluster to deploy the application locally.
@@ -95,6 +99,13 @@ Transfer-Encoding: chunked
 }
 ```
 
+If you want to leverage all the Dapr functionalities you can try [Conductor]() to monitor your applications running in Kubernetes. 
+
+
+
+# Working in the Cloud with GCP Cloud Run
+
+You can run the same application in the Cloud, no Kubernetes needed. You can use any container as a service platform to run the same applications without any code change. 
 
 
 ## References

@@ -38,7 +38,7 @@ spec:
         app: consumer-app
     spec:
       containers:
-      - image: salaboy/consumer-app:0.0.1
+      - image: salaboy/consumer-app:0.1.0
         name: consumer-app
         imagePullPolicy: Always
         ports:
