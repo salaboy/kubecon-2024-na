@@ -71,7 +71,7 @@ public class DaprTestContainersConfig {
 
 
      return new DaprContainer("daprio/daprd:1.14.1")
-             .withAppName("consumer-app")
+             .withAppName("consumer-app-dapr")
              .withNetwork(daprNetwork)
              .withComponent(new Component("pubsub", "pubsub.rabbitmq", "v1", rabbitMqProperties))
              .withDaprLogLevel(DaprLogLevel.DEBUG)

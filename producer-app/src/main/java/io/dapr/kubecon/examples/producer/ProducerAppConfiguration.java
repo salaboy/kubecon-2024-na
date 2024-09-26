@@ -3,6 +3,7 @@ package io.dapr.kubecon.examples.producer;
 import io.dapr.client.DaprClient;
 import io.dapr.spring.boot.autoconfigure.pubsub.DaprPubSubProperties;
 import io.dapr.spring.messaging.DaprMessagingTemplate;
+import io.opentelemetry.api.OpenTelemetry;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +20,9 @@ public class ProducerAppConfiguration {
     return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName());
   }
 
+
   @Bean
-  public RestTemplate restTemplate(RestTemplateBuilder builder) {
+  public RestTemplate restTemplate(RestTemplateBuilder builder, OpenTelemetry openTelemetry) {
     return builder.build();
   }
 }

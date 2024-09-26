@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<dapr-java-sdk.alpha-version>0.13.0-SNAPSHOT</dapr-java-sdk.alpha-version>
+		<grpc.version>1.64.0</grpc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -39,6 +40,17 @@
 			<groupId>io.dapr.spring</groupId>
 			<artifactId>dapr-spring-boot-starter</artifactId>
 			<version>${dapr-java-sdk.alpha-version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>io.grpc</groupId>
+					<artifactId>grpc-netty-shaded</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+			<version>${grpc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dapr.spring</groupId>
@@ -82,6 +94,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<buildpacks>
+							<buildpack>gcr.io/paketo-buildpacks/oracle</buildpack>
+							<buildpack>paketobuildpacks/java-native-image</buildpack>
+						</buildpacks>
+						<builder>paketobuildpacks/builder-jammy-buildpackless-tiny</builder>
+					</image>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.cyclonedx</groupId>
+				<artifactId>cyclonedx-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
