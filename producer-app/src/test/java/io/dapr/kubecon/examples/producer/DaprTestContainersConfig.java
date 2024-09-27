@@ -91,6 +91,8 @@ public class DaprTestContainersConfig {
              .withAppName("producer-app-dapr")
              .withNetwork(daprNetwork)
              .withComponent(new Component("pubsub", "pubsub.rabbitmq", "v1", rabbitMqProperties))
+//             .withConfiguration(new Configuration("my-config", new TracingConfigParameters("1.0", true,
+//                     "76e76f0f90a2437895dc234ccf381f13.apm.us-central1.gcp.cloud.es.io:443", true, "http")))
              .withConfiguration(new Configuration("my-config", new TracingConfigParameters("1.0", true,
                      "otel:4318", false, "http")))
              .withDaprLogLevel(DaprLogLevel.DEBUG)
