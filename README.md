@@ -30,7 +30,7 @@ Images are pushed to:
 You can run both services locally for local development tasks: 
 
 ```
-mvn spring-boot:test-run
+./mvnw spring-boot:test-run
 ```
 
 ## Deploy 
@@ -142,6 +142,17 @@ Container Image URL: salaboy/consumer-app:0.1.0
 For this two applications to work in this setup, we will need a message broker and a way to add  resiliency policies to work across both applications.
 
 If we want to avoid changing the applicaations code, we will need some sort of Dapr for Cloud Run. 
+As a message broker, you can run RabbitMQ in a VM or you can use Google PubSub, but that would require to change your application code (check the Spring Boot tutorial to [use Google PubSub in your apps](https://spring.io/guides/gs/messaging-gcp-pubsub)). We want to avoid making changes to the application code and make sure that the same code that we are running locally and in Kubernetes also run in Cloud Run. 
+
+### Using Diagrid's Catalyst with Cloud Run
+
+You can use the Dapr APIs also in cloud environments such as [Google Cloud Run](https://cloud.google.com/run), [AWS AppRunner](https://aws.amazon.com/apprunner/) and [Azure Container Apps](https://azure.microsoft.com/en-us/products/container-apps). This APIs are provided by [Diagrid's Catalyst service](https://www.diagrid.io/catalyst). Using Catalyst will enable you to replicate the same local and Kubernetes experience on services like Google Cloud Run. 
+
+Now that you have your Cloud Run applications running you can connect them to the Dapr APIs running in Catalyst. For that you will need to have a Catalyst account, a Catalyst project to create two App Ids for your applications. 
+
+
+
+
 
 
 ## References
