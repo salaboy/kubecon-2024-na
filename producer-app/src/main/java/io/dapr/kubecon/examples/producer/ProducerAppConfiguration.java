@@ -17,12 +17,12 @@ public class ProducerAppConfiguration {
   @Bean
   public DaprMessagingTemplate<DeviceEvent> messagingTemplate(DaprClient daprClient,
                                                               DaprPubSubProperties daprPubSubProperties) {
-    return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName());
+    return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName(), true);
   }
 
 
   @Bean
-  public RestTemplate restTemplate(RestTemplateBuilder builder, OpenTelemetry openTelemetry) {
+  public RestTemplate restTemplate(RestTemplateBuilder builder) {
     return builder.build();
   }
 }
