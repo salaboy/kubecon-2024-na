@@ -6,6 +6,7 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.testcontainers.DockerClientFactory;
+import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.RabbitMQContainer;
@@ -13,6 +14,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.junit.runner.Description;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +70,7 @@ public class DaprTestContainersConfig {
     @Scope("singleton")
     @ServiceConnection("otel/opentelemetry-collector-contrib")
     GenericContainer<?> lgtmContainer(Network daprNetwork) {
+       /*
       return new GenericContainer<>("docker.io/grafana/otel-lgtm:0.7.1")
               .withExposedPorts(3000, 4317, 4318)
               .withEnv("OTEL_METRIC_EXPORT_INTERVAL", "100")
@@ -75,6 +78,16 @@ public class DaprTestContainersConfig {
               .withStartupTimeout(Duration.ofMinutes(2))
               .withNetwork(daprNetwork)
               .withNetworkAliases("otel");
+              */
+        String configPath = Paths.get("otel-collector-config.yaml").toAbsolutePath().toString();
+        return new GenericContainer<>("otel/opentelemetry-collector:0.110.0")
+                .withCommand("--config=/etc/otel-collector-config.yaml")
+                .withFileSystemBind(configPath, "/etc/otel-collector-config.yaml", BindMode.READ_ONLY)
+                .withExposedPorts(4317, 4318)
+                .waitingFor(Wait.forListeningPort())
+                .withStartupTimeout(Duration.ofMinutes(2))
+                .withNetwork(daprNetwork)
+                .withNetworkAliases("otel");
     }
 
    @Bean
