@@ -17,7 +17,8 @@ public class ProducerAppConfiguration {
   @Bean
   public DaprMessagingTemplate<DeviceEvent> messagingTemplate(DaprClient daprClient,
                                                               DaprPubSubProperties daprPubSubProperties) {
-    return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName(), true);
+    return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName());
+            //, true);
   }
 
 
