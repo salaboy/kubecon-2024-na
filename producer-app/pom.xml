@@ -45,6 +45,16 @@
 			<artifactId>micrometer-tracing-bridge-otel</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>co.elastic.otel</groupId>
+			<artifactId>universal-profiling-integration</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>co.elastic.otel</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>io.opentelemetry</groupId>
 			<artifactId>opentelemetry-exporter-otlp</artifactId>
 		</dependency>
