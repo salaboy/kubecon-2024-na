@@ -61,7 +61,7 @@ jobs:
           pack build ${{ env.REGISTRY }}/${{ env.IMAGE }} \
             --builder docker.io/paketobuildpacks/builder-jammy-buildpackless-tiny \
             --buildpack gcr.io/paketo-buildpacks/java-native-image \
-            --env BP_JVM_VERSION=22 \
+            --env BP_JVM_VERSION=21 \
             --env BP_NATIVE_IMAGE=true \
             --path ${{ inputs.context }} \
             --platform ${{ matrix.platform }} \
