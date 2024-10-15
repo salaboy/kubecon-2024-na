@@ -22,8 +22,8 @@ docker push
 ```
 
 Images are pushed to:
-- docker.io/salaboy/producer-app:0.1.0
-- docker.io/salaboy/consumer-app:0.1.0
+- ghcr.io/salaboy/producer-app
+- ghcr.io/salaboy/consumer-app
 
 ### Run Locally
 

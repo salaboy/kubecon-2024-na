@@ -34,6 +34,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
@@ -46,6 +50,16 @@
 					<artifactId>grpc-netty-shaded</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>co.elastic.otel</groupId>
+			<artifactId>universal-profiling-integration</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>co.elastic.otel</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>

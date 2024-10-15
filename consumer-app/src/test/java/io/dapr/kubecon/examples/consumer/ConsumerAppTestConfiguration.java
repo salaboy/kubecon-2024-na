@@ -13,6 +13,7 @@ public class ConsumerAppTestConfiguration {
   @Bean
   public DaprMessagingTemplate<DeviceEvent> messagingTemplate(DaprClient daprClient,
                                                              DaprPubSubProperties daprPubSubProperties) {
-    return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName());
+    return new DaprMessagingTemplate<>(daprClient, daprPubSubProperties.getName()
+            , true);
   }
 }
