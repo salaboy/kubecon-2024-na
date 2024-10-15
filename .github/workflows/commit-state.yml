@@ -1,0 +1,26 @@
+name: Commit Stage
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  publish-jvm:
+    name: Publish JVM
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+      packages: write
+    uses: ./.github/workflows/multi-arch-publish-jvm.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [
+          {context: producer-app, image: producer-app-elastic},
+          {context: consumer-app, image: consumer-app-elastic}
+        ]
+    with:
+      context: ${{ matrix.project.context }}
+      image: ${{ matrix.project.image }}
+  
