@@ -18,7 +18,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE: thomasvitale/${{ inputs.image }}
+  IMAGE: salaboy/${{ inputs.image }}
 
 jobs:
   build:
