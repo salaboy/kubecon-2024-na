@@ -23,8 +23,6 @@ jobs:
     with:
       context: ${{ matrix.project.context }}
       image: ${{ matrix.project.image }}
-    secrets:  
-      push-token: ${{ secrets.IMAGE_PUSH_TOKEN }}
   
   publish-native:
     name: Publish Native
@@ -44,5 +42,3 @@ jobs:
     with:
       context: ${{ matrix.project.context }}
       image: ${{ matrix.project.image }}
-    secrets:  
-      push-token: ${{ secrets.IMAGE_PUSH_TOKEN }}
