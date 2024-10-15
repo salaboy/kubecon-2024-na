@@ -17,7 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         project: [
-          {context: demo, image: buildpacks-demo-jvm}
+          {context: producer-app, image: producer-app},
+          {context: consumer-app, image: consumer-app}
         ]
     with:
       context: ${{ matrix.project.context }}
@@ -37,7 +38,8 @@ jobs:
       fail-fast: false
       matrix:
         project: [
-          {context: demo-native, image: buildpacks-demo-native}
+          {context: producer-app, image: producer-app-native},
+          {context: consumer-app, image: consumer-app-native}
         ]
     with:
       context: ${{ matrix.project.context }}
