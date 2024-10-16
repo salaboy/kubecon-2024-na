@@ -9,8 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -41,15 +43,16 @@ class ConsumerAppTests {
 
 		messagingTemplate.send("topic", new DeviceEvent("abc-123", "gravitron-det", new Payload("test")));
 
-		//Wait for the message to be delivered
-		Thread.sleep(2000);
-
-		given()
-						.contentType(ContentType.JSON)
-						.when()
-						.get("/events")
-						.then()
-						.statusCode(200).body("size()", is(1));
+		Awaitility.given()
+						.pollInterval(Duration.ofSeconds(2))
+						.atMost(Duration.ofSeconds(15))
+						.ignoreExceptions()
+						.untilAsserted(() -> given()
+										.contentType(ContentType.JSON)
+										.when()
+										.get("/events")
+										.then()
+										.statusCode(200).body("size()", is(1)));
 
 
 
