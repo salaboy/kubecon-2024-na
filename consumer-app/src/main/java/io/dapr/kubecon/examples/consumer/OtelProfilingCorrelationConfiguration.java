@@ -21,6 +21,7 @@ import java.util.Objects;
 @Configuration
 public class OtelProfilingCorrelationConfiguration {
 
+
     // This overrides the tracer configuration from OpenTelemetryAutoConfiguration.otelSdkTracerProvider()
     @Bean
     public SdkTracerProvider tracerProviderWithProfilingCorrelation(Resource resource, SpanProcessors spanProcessors, Sampler sampler, ObjectProvider<SdkTracerProviderBuilderCustomizer> customizers) {
