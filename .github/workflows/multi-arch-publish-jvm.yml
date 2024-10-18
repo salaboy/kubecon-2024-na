@@ -57,7 +57,7 @@ jobs:
           pack build ${{ env.REGISTRY }}/${{ env.IMAGE }} \
             --builder docker.io/paketobuildpacks/builder-jammy-buildpackless-tiny \
             --buildpack gcr.io/paketo-buildpacks/java \
-            --env BP_JVM_VERSION=22 \
+            --env BP_JVM_VERSION=23 \
             --path ${{ inputs.context }} \
             --platform ${{ matrix.platform }} \
             --report-output-dir ./report.toml \
