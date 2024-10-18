@@ -38,7 +38,7 @@ spec:
         app: consumer-app
     spec:
       containers:
-      - image: ghcr.io/salaboy/consumer-app
+      - image: ghcr.io/salaboy/consumer-app-elastic
         name: consumer-app
         imagePullPolicy: Always
         ports:
