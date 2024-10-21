@@ -38,7 +38,7 @@ spec:
         app: producer-app
     spec:
       containers:
-      - image: ghcr.io/salaboy/producer-app-elastic
+      - image: ghcr.io/salaboy/producer-app-elastic:latest
         name: producer-app
         imagePullPolicy: Always
         env: 
