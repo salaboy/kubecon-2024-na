@@ -30,7 +30,7 @@ spec:
   template:
     metadata:
       annotations:  
-        dapr.io/app-id: consumer-app
+        dapr.io/app-id: consumer-app-dapr
         dapr.io/app-port: "8081"
         dapr.io/enabled: "true"
         dapr.io/log-level: "debug"

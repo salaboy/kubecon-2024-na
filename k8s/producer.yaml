@@ -30,7 +30,7 @@ spec:
   template:
     metadata:
       annotations:  
-        dapr.io/app-id: producer-app
+        dapr.io/app-id: producer-app-dapr
         dapr.io/app-port: "8080"
         dapr.io/enabled: "true"
         dapr.io/log-level: "debug"
