@@ -13,7 +13,6 @@ public class TestProducerApplication {
 
     SpringApplication
             .from(ProducerApplication::main)
-            .with(DaprTestContainersConfig.class)
             .run(args);
   }
 

@@ -17,23 +17,17 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@SpringBootTest(classes= {TestProducerApplication.class, DaprTestContainersConfig.class, DaprAutoConfiguration.class},
+@SpringBootTest(classes= {TestProducerApplication.class},
 				webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class ProducerAppTests {
 
 	@Autowired
 	private TestSubscriberRestController controller;
 
-	@BeforeAll
-	public static void setup(){
-		org.testcontainers.Testcontainers.exposeHostPorts(8080);
-	}
-
 	@BeforeEach
 	void setUp() {
 		RestAssured.baseURI = "http://localhost:" + 8080;
 	}
-
 
 	@Test
 	void testOrdersEndpointAndMessaging() throws InterruptedException, IOException {

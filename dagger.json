@@ -1,0 +1,16 @@
+{
+  "name": "kubecon-2024-na",
+  "sdk": "go",
+  "dependencies": [
+    {
+      "name": "dapr",
+      "source": "github.com/marcosnils/daggerverse/dapr@bfa9939333c74e5b74a7a3281d9a3fad729fba49"
+    },
+    {
+      "name": "java",
+      "source": "github.com/jcsirot/daggerverse/java@c591e9e0b99def2fc8a67bb090fca5cd06cf6a1d"
+    }
+  ],
+  "source": ".dagger",
+  "engineVersion": "v0.13.5"
+}
