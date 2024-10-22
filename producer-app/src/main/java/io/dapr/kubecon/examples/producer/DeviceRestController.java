@@ -55,7 +55,7 @@ public class DeviceRestController {
     headers.setContentType(MediaType.APPLICATION_JSON);
     HttpEntity<InfoRequest> postRequest = new HttpEntity<>(request, headers);
 
-    String url = daprConnectionDetails.httpEndpoint()+"/v1.0/invoke/consumer-app-dapr/method/info";
+    String url = daprConnectionDetails.httpEndpoint()+"/v1.0/invoke/consumer-app/method/info";
     System.out.println("+++ INVOKING SERVICE: " + url + " - Using Token: "+ daprApiToken);
     return restTemplate.postForObject(url, postRequest, InfoRequest.class);
   }

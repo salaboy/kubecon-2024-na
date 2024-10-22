@@ -1,0 +1,12 @@
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: my-config
+spec:
+  tracing:
+    stdout: true
+    samplingRate: '1.0'
+    otel:
+      endpointAddress: "otel:4318"
+      protocol: http
+      isSecure: false

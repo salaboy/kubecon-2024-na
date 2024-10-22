@@ -34,13 +34,15 @@ spec:
         dapr.io/app-port: "8081"
         dapr.io/enabled: "true"
         dapr.io/log-level: "debug"
+        dapr.io/config: "my-config"
       labels:
         app: consumer-app
     spec:
       containers:
-      - image: ghcr.io/salaboy/consumer-app-elastic:latest
+      - image: salaboy/consumer-app-elastic:amd64
         name: consumer-app
         imagePullPolicy: Always
+        env: 
         ports:
         - containerPort: 8081
           name: consumer-app

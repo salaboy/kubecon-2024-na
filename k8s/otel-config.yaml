@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-conf
+data:
+  otel-collector-config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+    processors:
+      batch:
+
+    exporters:
+      debug:
+        verbosity: detailed
+      otlp/elastic:
+        endpoint: 76e76f0f90a2437895dc234ccf381f13.apm.us-central1.gcp.cloud.es.io:443
+        headers:
+          # Elastic APM Server secret token
+          Authorization: "Bearer XXX"
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [debug, otlp/elastic]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp/elastic]
+        logs:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp/elastic]  

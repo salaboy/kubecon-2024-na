@@ -104,8 +104,8 @@ public class DaprTestContainersConfig {
              .withAppName("producer-app-dapr")
              .withNetwork(daprNetwork)
              .withComponent(new Component("pubsub", "pubsub.rabbitmq", "v1", rabbitMqProperties))
-//             .withConfiguration(new Configuration("my-config", new TracingConfigParameters("1.0", true,
-//                     "otel:4318", false, "http")))
+             .withConfiguration(new Configuration("my-config", new TracingConfigParameters("1.0", true,
+                     "otel:4318", false, "http")))
              .withDaprLogLevel(DaprLogLevel.DEBUG)
              .withLogConsumer(outputFrame -> System.out.println(outputFrame.getUtf8String()))
              .withAppPort(8080)

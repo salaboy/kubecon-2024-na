@@ -34,11 +34,12 @@ spec:
         dapr.io/app-port: "8080"
         dapr.io/enabled: "true"
         dapr.io/log-level: "debug"
+        dapr.io/config: "my-config"
       labels:
         app: producer-app
     spec:
       containers:
-      - image: ghcr.io/salaboy/producer-app-elastic:latest
+      - image: salaboy/producer-app-elastic:amd64
         name: producer-app
         imagePullPolicy: Always
         env: 
