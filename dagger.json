@@ -3,6 +3,10 @@
   "sdk": "go",
   "dependencies": [
     {
+      "name": "k3s",
+      "source": "github.com/marcosnils/daggerverse/k3s@8ca29406ee3924ff28f99134ffafc3a4cb90a057"
+    },
+    {
       "name": "dapr",
       "source": "github.com/marcosnils/daggerverse/dapr@bfa9939333c74e5b74a7a3281d9a3fad729fba49"
     },
