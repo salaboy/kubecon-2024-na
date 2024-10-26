@@ -39,9 +39,11 @@ func (k *Kube) Service(
 		WithExec([]string{"kubectl", "apply", "-f", "."}).
 		Sync(ctx)
 
-	// TODO use proxy to export apiserver consumer and producer endpoints
-
-	return kServer, nil
+	return dag.Proxy().
+		WithService(kServer, "kube", 6443, 6443).
+		WithService(kServer, "producer", 8080, 31000).
+		WithService(kServer, "consumer", 8081, 31001).
+		Service(), nil
 
 }
 
