@@ -11,7 +11,11 @@ type Kube struct {
 }
 
 // a kubernetes service with all the applications deployed
-func (k *Kube) Service(ctx context.Context) (*dagger.Service, error) {
+func (k *Kube) Service(
+	ctx context.Context,
+	// +defaultPath="k8s"
+	manifests *dagger.Directory,
+) (*dagger.Service, error) {
 	kServer := k.K3s.Server()
 
 	kServer, err := kServer.Start(ctx)
@@ -25,11 +29,14 @@ func (k *Kube) Service(ctx context.Context) (*dagger.Service, error) {
 	}
 
 	dag.Container().From("alpine/helm").
+		WithMountedDirectory("/app", manifests).
+		WithWorkdir("/app").
 		WithExec([]string{"apk", "add", "kubectl"}).
 		WithEnvVariable("KUBECONFIG", "/.kube/config").
 		WithFile("/.kube/config", k.K3s.Config()).
 		WithExec([]string{"helm", "install" /*"--wait",*/, "rabbitmq", "oci://registry-1.docker.io/bitnamicharts/rabbitmq"}).
-		WithExec([]string{"helm", "install" /*"--wait",*/, "dapr", "dapr", "--repo", "https://dapr.github.io/helm-charts/", "--version=1.14.1", "--namespace", "dapr", "--create-namespace"}).
+		WithExec([]string{"helm", "install", "--wait", "dapr", "dapr", "--repo", "https://dapr.github.io/helm-charts/", "--version=1.14.1", "--namespace", "dapr", "--create-namespace"}).
+		WithExec([]string{"kubectl", "apply", "-f", "."}).
 		Sync(ctx)
 
 	// TODO use proxy to export apiserver consumer and producer endpoints
