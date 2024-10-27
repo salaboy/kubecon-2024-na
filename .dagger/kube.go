@@ -28,16 +28,10 @@ func (k *Kube) Service(
 		return nil, err
 	}
 
-	dag.Container().From("alpine/helm").
-		WithMountedDirectory("/app", manifests).
-		WithWorkdir("/app").
-		WithExec([]string{"apk", "add", "kubectl"}).
-		WithEnvVariable("KUBECONFIG", "/.kube/config").
-		WithFile("/.kube/config", k.K3s.Config()).
-		WithExec([]string{"helm", "install" /*"--wait",*/, "rabbitmq", "oci://registry-1.docker.io/bitnamicharts/rabbitmq"}).
-		WithExec([]string{"helm", "install", "--wait", "dapr", "dapr", "--repo", "https://dapr.github.io/helm-charts/", "--version=1.14.1", "--namespace", "dapr", "--create-namespace"}).
-		WithExec([]string{"kubectl", "apply", "-f", "."}).
-		Sync(ctx)
+	err = k.Deploy(ctx, k.K3s.Config(), "", manifests, nil)
+	if err != nil {
+		return nil, err
+	}
 
 	return dag.Proxy().
 		WithService(kServer, "kube", 6443, 6443).
@@ -45,6 +39,60 @@ func (k *Kube) Service(
 		WithService(kServer, "consumer", 8081, 31001).
 		Service(), nil
 
+}
+
+// we have to do this since gke-gcloud-auth-plugin binary is not possible
+// to be downloaded from anywhere.
+func gCloud(cfg *dagger.Directory) func(*dagger.Container) *dagger.Container {
+	return func(c *dagger.Container) *dagger.Container {
+		return c.WithExec([]string{"apk", "add", "curl", "python3"}).
+			WithEnvVariable("PATH", "/google-cloud-sdk/bin:${PATH}", dagger.ContainerWithEnvVariableOpts{Expand: true}).
+			WithExec([]string{"sh", "-c", `curl -fsSLO https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
+tar xzf google-cloud-sdk.tar.gz -C /
+rm google-cloud-sdk.tar.gz
+gcloud config set core/disable_usage_reporting true
+gcloud config set component_manager/disable_update_check true
+gcloud config set metrics/environment github_docker_image
+gcloud components install alpha beta gke-gcloud-auth-plugin`}).
+			With(func(c *dagger.Container) *dagger.Container {
+				if cfg != nil {
+					c = c.WithMountedDirectory("/root/.config/gcloud", cfg)
+				}
+				return c
+			})
+	}
+
+}
+
+func (k *Kube) Deploy(
+	ctx context.Context,
+	kubeCfg *dagger.File,
+	// +optional
+	contextName string,
+	manifests *dagger.Directory,
+	// +optional
+	gcloudConfig *dagger.Directory,
+) error {
+	_, err := dag.Container().From("alpine/helm").
+		With(gCloud(gcloudConfig)).
+		WithMountedDirectory("/app", manifests).
+		WithWorkdir("/app").
+		WithExec([]string{"apk", "add", "kubectl"}).
+		WithEnvVariable("KUBECONFIG", "/.kube/config").
+		WithFile("/.kube/config", kubeCfg).
+		With(func(c *dagger.Container) *dagger.Container {
+			if len(contextName) > 0 {
+				c = c.WithExec([]string{"kubectl", "config", "set-context", contextName})
+			}
+			return c
+		}).
+		// we don't wait for rabitmq since dapr will take some time to become ready which will give
+		// rabbitmq enough time to finish its setup
+		WithExec([]string{"helm", "install", "rabbitmq", "oci://registry-1.docker.io/bitnamicharts/rabbitmq"}).
+		WithExec([]string{"helm", "install", "--wait", "dapr", "dapr", "--repo", "https://dapr.github.io/helm-charts/", "--version=1.14.1", "--namespace", "dapr", "--create-namespace"}).
+		WithExec([]string{"kubectl", "apply", "-f", "."}).
+		Sync(ctx)
+	return err
 }
 
 func (k *Kube) Config(
