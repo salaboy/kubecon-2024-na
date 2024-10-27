@@ -64,6 +64,7 @@ gcloud components install alpha beta gke-gcloud-auth-plugin`}).
 
 }
 
+// deploys the apps to the target k8s cluster
 func (k *Kube) Deploy(
 	ctx context.Context,
 	kubeCfg *dagger.File,

@@ -66,6 +66,7 @@ func (m *Kubecon2024Na) Consumer(
 	}, nil
 }
 
+// Kubernetes operations
 func (m *Kubecon2024Na) Kube() *Kube {
 	return &Kube{
 		K3s: dag.K3S("kubecon2024"),
