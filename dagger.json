@@ -3,11 +3,6 @@
   "sdk": "go",
   "dependencies": [
     {
-      "name": "proxy",
-      "source": "github.com/kpenfound/dagger-modules/proxy@proxy/v0.2.1",
-      "pin": "7af9af916147361951530edb976f242f51f7f70a"
-    },
-    {
       "name": "dapr",
       "source": "github.com/marcosnils/daggerverse/dapr@bfa9939333c74e5b74a7a3281d9a3fad729fba49",
       "pin": "bfa9939333c74e5b74a7a3281d9a3fad729fba49"
@@ -21,6 +16,11 @@
       "name": "k3s",
       "source": "github.com/marcosnils/daggerverse/k3s@8ca29406ee3924ff28f99134ffafc3a4cb90a057",
       "pin": "8ca29406ee3924ff28f99134ffafc3a4cb90a057"
+    },
+    {
+      "name": "proxy",
+      "source": "github.com/kpenfound/dagger-modules/proxy@proxy/v0.2.1",
+      "pin": "7af9af916147361951530edb976f242f51f7f70a"
     }
   ],
   "source": ".dagger",

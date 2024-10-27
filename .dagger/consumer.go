@@ -32,7 +32,7 @@ func (m *Consumer) Container(
 		return nil, err
 	}
 
-	return base(ctx, f, m.AppName, m.DaprComponents)
+	return base(ctx, f, m.AppName)
 }
 
 func (m *Consumer) Test(
@@ -40,4 +40,21 @@ func (m *Consumer) Test(
 ) (*dagger.Service, error) {
 
 	return Test(ctx, m.Src, m.DaprComponents)
+}
+
+func (m *Consumer) Service(
+	ctx context.Context,
+
+	// +optional
+	rabbit *dagger.Service,
+) (*dagger.Service, error) {
+	c, err := m.Container(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	c = c.With(dapr(ctx, m.AppName, m.DaprComponents, rabbit))
+
+	return c.AsService().WithHostname(m.AppName), nil
+
 }

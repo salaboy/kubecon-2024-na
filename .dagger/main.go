@@ -25,7 +25,7 @@ type Kubecon2024Na struct{}
 func (m *Kubecon2024Na) Producer(
 	ctx context.Context,
 	// +defaultPath="/producer-app"
-	// +ignore=["target"]
+	// +ignore=["target/*.jar*"]
 	src *dagger.Directory,
 	// +defaultPath="/components"
 	daprComponents *dagger.Directory,
@@ -48,7 +48,7 @@ func (m *Kubecon2024Na) Producer(
 func (m *Kubecon2024Na) Consumer(
 	ctx context.Context,
 	// +defaultPath="/consumer-app"
-	// +ignore=["target"]
+	// +ignore=["target/*.jar*"]
 	src *dagger.Directory,
 	// +defaultPath="/components"
 	daprComponents *dagger.Directory,
@@ -64,6 +64,40 @@ func (m *Kubecon2024Na) Consumer(
 		Src:            src,
 		DaprComponents: daprComponents,
 	}, nil
+}
+
+// Starts both consumer and producer services
+func (m *Kubecon2024Na) App(
+	ctx context.Context,
+	// +defaultPath="/"
+	// +ignore=["/**/target/*.jar*"]
+	src *dagger.Directory,
+) (*dagger.Service, error) {
+	p, err := m.Producer(ctx, src.Directory("producer-app"), src.Directory("components"))
+	if err != nil {
+		return nil, err
+	}
+	c, err := m.Consumer(ctx, src.Directory("consumer-app"), src.Directory("components"))
+	if err != nil {
+		return nil, err
+	}
+
+	rabbit := rabbitMQ().AsService()
+
+	ps, err := p.Service(ctx, rabbit)
+	if err != nil {
+		return nil, err
+	}
+
+	cs, err := c.Service(ctx, rabbit)
+	if err != nil {
+		return nil, err
+	}
+
+	return dag.Proxy().
+		WithService(ps, "producer", 8080, 8080).
+		WithService(cs, "consumer", 8081, 8080).Service(), nil
+
 }
 
 // Kubernetes operations

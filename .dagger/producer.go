@@ -39,17 +39,23 @@ func (m *Producer) Container(
 		return nil, err
 	}
 
-	return base(ctx, f, m.AppName, m.DaprComponents)
+	return base(ctx, f, m.AppName)
 }
 
 func (m *Producer) Service(
 	ctx context.Context,
+
+	// +optional
+	rabbit *dagger.Service,
+
 ) (*dagger.Service, error) {
 	c, err := m.Container(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return c.AsService().WithHostname("producer"), nil
+	c = c.With(dapr(ctx, m.AppName, m.DaprComponents, rabbit))
+
+	return c.AsService().WithHostname(m.AppName), nil
 
 }
