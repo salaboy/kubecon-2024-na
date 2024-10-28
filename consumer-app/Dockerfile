@@ -4,7 +4,9 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=tools -jar app.jar extract --layers --destination extracted
 
-FROM docker.io/library/eclipse-temurin:21-jre-jammy
+FROM ubuntu:jammy
+RUN apt update && apt -y install openjdk-21-dbg
+
 RUN useradd spring
 USER spring
 WORKDIR workspace
