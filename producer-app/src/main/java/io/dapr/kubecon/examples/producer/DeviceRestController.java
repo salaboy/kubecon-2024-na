@@ -50,6 +50,9 @@ public class DeviceRestController {
 
   @PostMapping("/device/info")
   public InfoRequest requestInfo(@RequestBody InfoRequest request){
+
+    ContentDecoder.deserialize();
+
     HttpHeaders headers = new HttpHeaders();
     headers.add("dapr-api-token", daprApiToken);
     headers.setContentType(MediaType.APPLICATION_JSON);
