@@ -3,8 +3,8 @@ kind: Resiliency
 metadata:
   name: resiliency-policy
 scopes:
-  - consumer-app
-  - producer-app
+  - consumer-app-dapr
+  - producer-app-dapr
 spec:
   policies:
     retries:
