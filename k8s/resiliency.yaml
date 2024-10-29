@@ -21,6 +21,6 @@ spec:
 
   targets:
     apps:
-      consumer-app:
+      consumer-app-dapr:
         retry: retryForever
         circuitBreaker: simpleCB
