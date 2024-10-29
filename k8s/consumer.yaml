@@ -5,7 +5,7 @@ metadata:
     app: consumer-app
   name: consumer-app
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name: "consumer-app"
     port: 8081
