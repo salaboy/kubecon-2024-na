@@ -70,7 +70,6 @@ public class DaprTestContainersConfig {
     @Scope("singleton")
     @ServiceConnection("otel/opentelemetry-collector-contrib")
     GenericContainer<?> lgtmContainer(Network daprNetwork) {
-       /*
       return new GenericContainer<>("docker.io/grafana/otel-lgtm:0.7.1")
               .withExposedPorts(3000, 4317, 4318)
               .withEnv("OTEL_METRIC_EXPORT_INTERVAL", "100")
@@ -78,16 +77,18 @@ public class DaprTestContainersConfig {
               .withStartupTimeout(Duration.ofMinutes(2))
               .withNetwork(daprNetwork)
               .withNetworkAliases("otel");
-              */
-        String configPath = Paths.get("otel-collector-config.yaml").toAbsolutePath().toString();
-        return new GenericContainer<>("otel/opentelemetry-collector:0.110.0")
-                .withCommand("--config=/etc/otel-collector-config.yaml")
-                .withFileSystemBind(configPath, "/etc/otel-collector-config.yaml", BindMode.READ_ONLY)
-                .withExposedPorts(4317, 4318)
-                .waitingFor(Wait.forListeningPort())
-                .withStartupTimeout(Duration.ofMinutes(2))
-                .withNetwork(daprNetwork)
-                .withNetworkAliases("otel");
+
+
+// Local Otel collector for sending data to Elastic Cloud
+//        String configPath = Paths.get("otel-collector-config.yaml").toAbsolutePath().toString();
+//        return new GenericContainer<>("otel/opentelemetry-collector:0.110.0")
+//                .withCommand("--config=/etc/otel-collector-config.yaml")
+//                .withFileSystemBind(configPath, "/etc/otel-collector-config.yaml", BindMode.READ_ONLY)
+//                .withExposedPorts(4317, 4318)
+//                .waitingFor(Wait.forListeningPort())
+//                .withStartupTimeout(Duration.ofMinutes(2))
+//                .withNetwork(daprNetwork)
+//                .withNetworkAliases("otel");
     }
 
    @Bean
@@ -104,8 +105,8 @@ public class DaprTestContainersConfig {
              .withAppName("producer-app-dapr")
              .withNetwork(daprNetwork)
              .withComponent(new Component("pubsub", "pubsub.rabbitmq", "v1", rabbitMqProperties))
-             .withConfiguration(new Configuration("my-config", new TracingConfigParameters("1.0", true,
-                     "otel:4318", false, "http")))
+             .withConfiguration(new Configuration("my-config", new TracingConfigurationSettings("1.0", true,
+                     new OtelTracingConfigurationSettings("otel:4318", false, "http"), null)))
              .withDaprLogLevel(DaprLogLevel.DEBUG)
              .withLogConsumer(outputFrame -> System.out.println(outputFrame.getUtf8String()))
              .withAppPort(8080)

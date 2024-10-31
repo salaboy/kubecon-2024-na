@@ -83,7 +83,7 @@ kubectl port-forward svc/producer-app 8080:8080
 Then to send Events between the applications send the following request: 
 
 ```bash
-http :8080/device/events id="asd-123" device="device1" payload=content="abc"
+http :8080/async id="asd-123" device="device1" payload=content="abc"
 ```
 
 You should see in the `consumer-app` logs: 
@@ -99,7 +99,7 @@ DATA +++++ DeviceEvent{id='asd-123', device='device1', payload=Payload{content='
 
 
 ```bash
-http :8080/device/info id="123" content="abc"
+http :8080/sync id="123" content="abc"
 ```
 
 You should be able to see the content field being decorated with `-validated`:

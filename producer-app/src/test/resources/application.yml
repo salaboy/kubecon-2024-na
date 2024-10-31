@@ -15,9 +15,9 @@ management:
   tracing:
     sampling:
       probability: 1.0
-    otlp:
-      tracing:
-        endpoint: http://otel:4318/v1/traces
+  otlp:
+    tracing:
+      endpoint: http://otel:4318/v1/traces
 #        endpoint: https://76e76f0f90a2437895dc234ccf381f13.apm.us-central1.gcp.cloud.es.io:443
 #        headers:
 #          Authorization: "Bearer XXX"

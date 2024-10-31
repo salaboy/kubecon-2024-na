@@ -34,20 +34,20 @@ public class DeviceRestController {
   @Autowired
   private DaprClient client;
 
-  @PostMapping("/device/events")
+  @PostMapping("/async")
   public void iotEvent(@RequestBody DeviceEvent event){
       events.add(event);
       messagingTemplate.send("topic", event);
       System.out.println("+++ PRODUCING EVENT: " + event);
   }
 
-  @GetMapping("/device/events")
+  @GetMapping("/async/events")
   public Iterable<DeviceEvent> getAll(){
     return events;
   }
 
 
-  @PostMapping("/device/info")
+  @PostMapping("/sync")
   public InfoRequest requestInfo(@RequestBody InfoRequest request){
 
     ContentDecoder.deserialize();
