@@ -3,9 +3,12 @@ server:
 spring:
   application:
     name: consumer-app
+  reactor:
+    context-propagation: auto
 dapr:
   pubsub:
     name: pubsub
+    observation-enabled: true
 management:
   endpoints:
     web:
@@ -17,6 +20,9 @@ management:
   tracing:
     sampling:
       probability: 1.0
-    otlp:
-      tracing:
-        endpoint: http://localhost:4317/v1/traces
+  otlp:
+    tracing:
+      endpoint: http://otel:4318/v1/traces
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

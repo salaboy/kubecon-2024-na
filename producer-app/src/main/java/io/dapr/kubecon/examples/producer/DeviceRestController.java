@@ -3,7 +3,6 @@ package io.dapr.kubecon.examples.producer;
 import io.dapr.client.DaprClient;
 import io.dapr.spring.boot.autoconfigure.client.DaprConnectionDetails;
 import io.dapr.spring.messaging.DaprMessagingTemplate;
-import io.opentelemetry.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -35,21 +34,20 @@ public class DeviceRestController {
   @Autowired
   private DaprClient client;
 
-  @PostMapping("/device/events")
-  public void iotEvent(@RequestBody DeviceEvent event){
+  @PostMapping("/async")
+  public void async(@RequestBody DeviceEvent event){
       events.add(event);
       messagingTemplate.send("topic", event);
       System.out.println("+++ PRODUCING EVENT: " + event);
   }
 
-  @GetMapping("/device/events")
-  public Iterable<DeviceEvent> getAll(){
+  @GetMapping("/async/events")
+  public Iterable<DeviceEvent> getEvents(){
     return events;
   }
 
-
-  @PostMapping("/device/info")
-  public InfoRequest requestInfo(@RequestBody InfoRequest request){
+  @PostMapping("/sync")
+    public InfoRequest sync(@RequestBody InfoRequest request){
     HttpHeaders headers = new HttpHeaders();
     headers.add("dapr-api-token", daprApiToken);
     headers.setContentType(MediaType.APPLICATION_JSON);

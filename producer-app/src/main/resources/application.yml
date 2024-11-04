@@ -1,9 +1,30 @@
 spring:
   application:
     name: producer-app
+  reactor:
+    context-propagation: auto
 dapr:
   pubsub:
     name: pubsub
+    observation-enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      service.name: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0
+
+  otlp:
+    tracing:
+      endpoint: http://otel:4318/v1/traces
+#      endpoint: https://76e76f0f90a2437895dc234ccf381f13.apm.us-central1.gcp.cloud.es.io:443
+#      headers:
+#        Authorization: "Bearer XXX"
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

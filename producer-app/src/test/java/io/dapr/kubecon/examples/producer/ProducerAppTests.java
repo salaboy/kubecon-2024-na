@@ -45,7 +45,7 @@ class ProducerAppTests {
                     """
 						)
 						.when()
-						.post("/device/events")
+						.post("/async")
 						.then()
 						.statusCode(200);
 
@@ -54,7 +54,7 @@ class ProducerAppTests {
 		given()
 						.contentType(ContentType.JSON)
 						.when()
-						.get("/device/events")
+						.get("/async/events")
 						.then()
 						.statusCode(200).body("size()", is(1));
 
