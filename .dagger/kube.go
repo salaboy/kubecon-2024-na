@@ -65,6 +65,7 @@ func (k *Kube) Deploy(
 	kubeCfg *dagger.File,
 	// +optional
 	contextName string,
+	// +defaultPath="k8s"
 	manifests *dagger.Directory,
 	// +optional
 	gcloudConfig *dagger.Directory,
