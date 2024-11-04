@@ -7,6 +7,9 @@ dapr:
   pubsub:
     name: pubsub
     observation-enabled: true
+  client:
+    httpEndpoint: http://producer-app-dapr
+    httpPort: 3500
 management:
   endpoints:
     web:

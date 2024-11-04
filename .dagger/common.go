@@ -61,9 +61,9 @@ func dapr(ctx context.Context, app string, components *dagger.Directory, pRabbit
 
 				return c.WithServiceBinding("rabbitmq", rabbitSvc)
 			}).
-			WithExposedPort(50001).AsService().WithHostname("dapr")
+			WithExposedPort(50001).WithExposedPort(3500).AsService().WithHostname(fmt.Sprintf("%s-dapr", app))
 		dapr.Start(ctx)
-		return c.WithEnvVariable("DAPR_GRPC_ENDPOINT", "http://dapr:50001")
+		return c.WithEnvVariable("DAPR_GRPC_ENDPOINT", fmt.Sprintf("http://%s-dapr:50001", app)).WithEnvVariable("DAPR_HTTP_ENDPOINT", fmt.Sprintf("http://%s-dapr:3500", app))
 	}
 }
 

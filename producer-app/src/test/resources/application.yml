@@ -4,6 +4,9 @@ spring:
 dapr:
   pubsub:
     name: pubsub
+  client:
+    httpEndpoint: http://producer-app-dapr
+    httpPort: 3500
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
