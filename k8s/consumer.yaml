@@ -8,7 +8,6 @@ spec:
   type: LoadBalancer
   ports:
   - name: "consumer-app"
-    port: 8081
     targetPort: 8081
     nodePort: 31001
   selector:

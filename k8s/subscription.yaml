@@ -7,4 +7,4 @@ spec:
   route: subscribe
   pubsubname: pubsub
 scopes: 
-- consumer-app
+- consumer-app-dapr

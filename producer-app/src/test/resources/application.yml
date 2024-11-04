@@ -1,9 +1,12 @@
 spring:
   application:
     name: producer-app
+  reactor:
+    context-propagation: auto
 dapr:
   pubsub:
     name: pubsub
+    observation-enabled: true
 management:
   endpoints:
     web:

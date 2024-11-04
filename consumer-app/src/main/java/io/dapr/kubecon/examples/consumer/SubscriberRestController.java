@@ -2,8 +2,6 @@ package io.dapr.kubecon.examples.consumer;
 
 import io.dapr.Topic;
 import io.dapr.client.domain.CloudEvent;
-import okhttp3.Response;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;

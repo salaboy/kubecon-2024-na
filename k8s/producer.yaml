@@ -7,8 +7,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: "consumer-app"
-    port: 8080
+  - name: "producer-app"
     targetPort: 8080
     nodePort: 31000
   selector:

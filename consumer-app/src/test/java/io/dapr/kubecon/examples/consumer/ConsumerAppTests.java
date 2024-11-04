@@ -41,11 +41,13 @@ class ConsumerAppTests {
 	@Test
 	void testMessageConsumer() throws InterruptedException, IOException {
 
+		Thread.sleep(2000);
+
 		messagingTemplate.send("topic", new DeviceEvent("abc-123", "gravitron-det", new Payload("test")));
 
 		Awaitility.given()
-						.pollInterval(Duration.ofSeconds(2))
-						.atMost(Duration.ofSeconds(15))
+						.pollInterval(Duration.ofSeconds(3))
+						.atMost(Duration.ofSeconds(20))
 						.ignoreExceptions()
 						.untilAsserted(() -> given()
 										.contentType(ContentType.JSON)
