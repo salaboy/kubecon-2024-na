@@ -95,8 +95,8 @@ func (m *Kubecon2024Na) App(
 	}
 
 	return dag.Proxy().
-		WithService(ps, "producer", 8080, 8080).
-		WithService(cs, "consumer", 8081, 8080).Service(), nil
+		WithService(ps, "producer", 8080, 8080, dagger.ProxyWithServiceOpts{IsTCP: true}).
+		WithService(cs, "consumer", 8081, 8080, dagger.ProxyWithServiceOpts{IsTCP: true}).Service(), nil
 
 }
 

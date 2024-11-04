@@ -33,8 +33,11 @@ func Build(
 	if err != nil {
 		return nil, err
 	}
-	return dag.Java().WithJdk("17").WithProject(src).
-		Ctr().WithMountedCache("/root/.m2", dag.CacheVolume("kubecon-mvn-cache")).
+	return dag.Java().
+		WithJdk("17").
+		WithProject(src).
+		Ctr().
+		WithMountedCache("/root/.m2", dag.CacheVolume("kubecon-mvn-cache")).
 		WithExec([]string{"./mvnw", "package", "-DskipTests"}).File(fmt.Sprintf("target/%s-%s.jar", name, version)), nil
 }
 

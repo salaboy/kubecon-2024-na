@@ -23,11 +23,6 @@ func (k *Kube) Service(
 		return nil, err
 	}
 
-	_, err = kServer.Endpoint(ctx, dagger.ServiceEndpointOpts{Port: 80, Scheme: "http"})
-	if err != nil {
-		return nil, err
-	}
-
 	err = k.Deploy(ctx, k.K3s.Config(), "", manifests, nil)
 	if err != nil {
 		return nil, err
