@@ -38,7 +38,7 @@ spec:
         app: producer-app
     spec:
       containers:
-      - image: salaboy/producer-app:0.1.0
+      - image: salaboy/producer-app:0.3.0
         name: producer-app
         imagePullPolicy: Always
         env: 
