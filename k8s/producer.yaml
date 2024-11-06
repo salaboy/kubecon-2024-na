@@ -29,7 +29,7 @@ spec:
       app: producer-app
   template:
     metadata:
-      annotations:  
+      annotations:
         dapr.io/app-id: producer-app
         dapr.io/app-port: "8080"
         dapr.io/enabled: "true"
@@ -41,7 +41,7 @@ spec:
       - image: salaboy/producer-app:0.3.0
         name: producer-app
         imagePullPolicy: Always
-        env: 
+        env:
         - name: DAPR_CLIENT_HTTPENDPOINT
           value: http://localhost:3500
         ports:
