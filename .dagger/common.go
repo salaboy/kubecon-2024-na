@@ -95,7 +95,7 @@ func base(
 ) (*dagger.Container, error) {
 	return dag.Container().From("ubuntu/jre:17-22.04_edge").
 		WithWorkdir("/usr/src/app").WithFile("app.jar", src).
-		WithMountedTemp("/tmp").
+		WithDirectory("/tmp", dag.Directory(), dagger.ContainerWithDirectoryOpts{Owner: "101"}).
 		WithEntrypoint([]string{"java", "-Dserver.port=8080", "-jar", "app.jar"}).
 		WithExposedPort(8080), nil
 }
