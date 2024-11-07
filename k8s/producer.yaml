@@ -43,7 +43,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: DAPR_CLIENT_HTTPENDPOINT
-          value: http://localhost:3500
+          value: http://localhost
         ports:
         - containerPort: 8080
           name: producer-app

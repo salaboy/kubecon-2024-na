@@ -30,8 +30,8 @@ func (k *Kube) Service(
 
 	return dag.Proxy().
 		WithService(kServer, "kube", 6443, 6443).
-		WithService(kServer, "producer", 8080, 31000).
-		WithService(kServer, "consumer", 8081, 31001).
+		WithService(kServer, "producer", 8080, 31000, dagger.ProxyWithServiceOpts{IsTCP: true}).
+		WithService(kServer, "consumer", 8081, 31001, dagger.ProxyWithServiceOpts{IsTCP: true}).
 		Service(), nil
 
 }
