@@ -92,6 +92,7 @@ func (k *Kube) Deploy(
 	return err
 }
 
+// return the kube config for the running cluster
 func (k *Kube) Config(
 	ctx context.Context,
 	// +default="false"
@@ -100,6 +101,7 @@ func (k *Kube) Config(
 	return k.K3s.Config(dagger.K3SConfigOpts{Local: local})
 }
 
+// returns a container with kubectl configured and installed
 func (k *Kube) Kubectl(
 	ctx context.Context,
 	// +optional
@@ -108,6 +110,7 @@ func (k *Kube) Kubectl(
 	return k.K3s.Kubectl(args)
 }
 
+// returns a container with kns installed
 func (k *Kube) Kns(
 	ctx context.Context,
 ) *dagger.Container {
