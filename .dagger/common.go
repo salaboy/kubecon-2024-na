@@ -24,7 +24,7 @@ func getAppNameAndVersion(ctx context.Context, src *dagger.File) (string, string
 	return nameVersion[0], nameVersion[1], nil
 }
 
-func Build(
+func build(
 	ctx context.Context,
 	appName, appVersion string,
 	src *dagger.Directory,

@@ -20,7 +20,7 @@ func (m *Producer) Build(
 	ctx context.Context,
 ) (*dagger.File, error) {
 
-	return Build(ctx, m.AppName, m.AppVersion, m.Src)
+	return build(ctx, m.AppName, m.AppVersion, m.Src)
 }
 
 func (m *Producer) Test(
@@ -34,7 +34,7 @@ func (m *Producer) Container(
 	ctx context.Context,
 ) (*dagger.Container, error) {
 
-	f, err := Build(ctx, m.AppName, m.AppVersion, m.Src)
+	f, err := build(ctx, m.AppName, m.AppVersion, m.Src)
 	if err != nil {
 		return nil, err
 	}
