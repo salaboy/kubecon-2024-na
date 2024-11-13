@@ -29,16 +29,12 @@ func build(
 	appName, appVersion string,
 	src *dagger.Directory,
 ) (*dagger.File, error) {
-	name, version, err := getAppNameAndVersion(ctx, src.File("pom.xml"))
-	if err != nil {
-		return nil, err
-	}
 	return dag.Java().
 		WithJdk("17").
 		WithProject(src).
 		Ctr().
 		WithMountedCache("/root/.m2", dag.CacheVolume("kubecon-mvn-cache")).
-		WithExec([]string{"./mvnw", "package", "-DskipTests"}).File(fmt.Sprintf("target/%s-%s.jar", name, version)), nil
+		WithExec([]string{"./mvnw", "package", "-DskipTests"}).File(fmt.Sprintf("target/%s-%s.jar", appName, appVersion)), nil
 }
 
 func rabbitMQ() *dagger.Container {
