@@ -16,6 +16,7 @@ type Producer struct {
 	DaprComponents *dagger.Directory
 }
 
+// builds the application and returns a jar file
 func (m *Producer) Build(
 	ctx context.Context,
 ) (*dagger.File, error) {
@@ -23,6 +24,7 @@ func (m *Producer) Build(
 	return build(ctx, m.AppName, m.AppVersion, m.Src)
 }
 
+// runs the tests
 func (m *Producer) Test(
 	ctx context.Context,
 ) (*dagger.Service, error) {
@@ -30,6 +32,7 @@ func (m *Producer) Test(
 	return Test(ctx, m.Src, m.DaprComponents)
 }
 
+// returns the application container
 func (m *Producer) Container(
 	ctx context.Context,
 ) (*dagger.Container, error) {
@@ -42,6 +45,7 @@ func (m *Producer) Container(
 	return base(ctx, f, m.AppName)
 }
 
+// returns the application service
 func (m *Producer) Service(
 	ctx context.Context,
 
